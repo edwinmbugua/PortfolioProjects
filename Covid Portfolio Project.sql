@@ -102,11 +102,11 @@ DROP Table if exists PercentPopulationVaccinated
 CREATE TABLE PercentPopulationVaccinated
 (
 Continent varchar(255),
-Date text,
+Date date,
 Location varchar (255),
-Population text,
-New_vaccinations text,
-RollingPeopleVaccinated bigint
+Population numeric,
+New_vaccinations numeric,
+RollingPeopleVaccinated numeric
 )
 
 Insert into PercentPopulationVaccinated
