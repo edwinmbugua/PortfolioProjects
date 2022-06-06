@@ -1,5 +1,4 @@
-
- use portfolio_project;  
+use portfolio_project;  
 /*
 Cleaning Data in SQL Queries
 */
@@ -23,7 +22,6 @@ Add SaleDateConverted Date;
 
 Update nashvillehousing
 SET SaleDateConverted = CONVERT(Date,SaleDate)
-
 
 -- Populate Property Address data
 
@@ -62,13 +60,11 @@ SUBSTRING(PropertyAddress, 1, CHARINDEX(',', PropertyAddress) -1 ) as Address
 
 From nashvillehousing
 
-
 ALTER TABLE nashvillehousing
 Add PropertySplitAddress Nvarchar(255);
 
 Update nashvillehousing
 SET PropertySplitAddress = SUBSTRING(PropertyAddress, 1, CHARINDEX(',', PropertyAddress) -1 )
-
 
 ALTER TABLE nashvillehousing
 Add PropertySplitCity Nvarchar(255);
@@ -77,66 +73,45 @@ Update nashvillehousing
 SET PropertySplitCity = SUBSTRING(PropertyAddress, CHARINDEX(',', PropertyAddress) + 1 , LEN(PropertyAddress))
 
 
-
-
 Select *
 From nashvillehousing 
 
-
-
-
-
 Select OwnerAddress
-From PortfolioProject.dbo.NashvilleHousing
-
+From nashvillehousing
 
 Select
 PARSENAME(REPLACE(OwnerAddress, ',', '.') , 3)
 ,PARSENAME(REPLACE(OwnerAddress, ',', '.') , 2)
 ,PARSENAME(REPLACE(OwnerAddress, ',', '.') , 1)
-From PortfolioProject.dbo.NashvilleHousing
+From nashvillehousing
 
-
-
-ALTER TABLE NashvilleHousing
+ALTER TABLE nashvillehousing
 Add OwnerSplitAddress Nvarchar(255);
 
-Update NashvilleHousing
+Update nashvillehousing
 SET OwnerSplitAddress = PARSENAME(REPLACE(OwnerAddress, ',', '.') , 3)
 
-
-ALTER TABLE NashvilleHousing
+ALTER TABLE nashvillehousing
 Add OwnerSplitCity Nvarchar(255);
 
-Update NashvilleHousing
+Update nashvillehousing
 SET OwnerSplitCity = PARSENAME(REPLACE(OwnerAddress, ',', '.') , 2)
 
-
-
-ALTER TABLE NashvilleHousing
+ALTER TABLE nashvillehousing
 Add OwnerSplitState Nvarchar(255);
 
-Update NashvilleHousing
+Update nashvillehousing
 SET OwnerSplitState = PARSENAME(REPLACE(OwnerAddress, ',', '.') , 1)
 
-
-
 Select *
-From PortfolioProject.dbo.NashvilleHousing
-
-
-
-
+From nashvillehousing
 
 -- Change Y and N to Yes and No in "Sold as Vacant" field
 
-
 Select Distinct(SoldAsVacant), Count(SoldAsVacant)
-From PortfolioProject.dbo.NashvilleHousing
+From nashvillehousing
 Group by SoldAsVacant
 order by 2
-
-
 
 
 Select SoldAsVacant
@@ -144,17 +119,14 @@ Select SoldAsVacant
 	   When SoldAsVacant = 'N' THEN 'No'
 	   ELSE SoldAsVacant
 	   END
-From PortfolioProject.dbo.NashvilleHousing
+From nashvillehousing
 
 
-Update NashvilleHousing
+Update nashvillehousing
 SET SoldAsVacant = CASE When SoldAsVacant = 'Y' THEN 'Yes'
 	   When SoldAsVacant = 'N' THEN 'No'
 	   ELSE SoldAsVacant
 	   END
-
-
-
 
 -- Remove Duplicates
 
@@ -170,7 +142,7 @@ Select *,
 					UniqueID
 					) row_num
 
-From PortfolioProject.dbo.NashvilleHousing
+From nashvillehousing
 --order by ParcelID
 )
 Select *
@@ -181,51 +153,13 @@ Order by PropertyAddress
 
 
 Select *
-From PortfolioProject.dbo.NashvilleHousing
-
-
+From nashvillehousing
 
 -- Delete Unused Columns
 
-
-
 Select *
-From PortfolioProject.dbo.NashvilleHousing
+From nashvillehousing
 
 
-ALTER TABLE PortfolioProject.dbo.NashvilleHousing
+ALTER TABLE nashvillehousing
 DROP COLUMN OwnerAddress, TaxDistrict, PropertyAddress, SaleDate
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
